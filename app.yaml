@@ -1,0 +1,32 @@
+application: insp3cto2
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /javascripts
+  static_dir: javascripts
+
+- url: /images
+  static_dir: images
+
+- url: /tips
+  static_files: webpages/tips.html
+  upload: webpages/tips.html
+
+- url: /inspect
+  script: yainspect.py
+  login: required
+
+- url: /tasks/inspector
+  script: inspector/tasks/inspector_job.py
+  login: admin
+
+- url: /.*
+  script: index.py
+
+builtins:
+- datastore_admin: on

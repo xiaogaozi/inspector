@@ -1,0 +1,230 @@
+/* header.html */
+
+#header
+{
+    width: 958px;
+    height: 91px;
+    min-width: 950px;
+    margin: 0 auto 15px auto;
+}
+
+#header .logo, .logo:visited
+{
+    left: 20px;
+    top: 24px;
+    position: relative;
+    display: block;
+    color: black;
+    font-size: 30px;
+    width: 100px;
+    font-family: Courier;
+}
+
+.logo:hover
+{
+    text-decoration: none;
+}
+
+.userbox
+{
+    float: right;
+}
+
+.usernav
+{
+    list-style: none;
+    overflow: hidden;
+    margin: 0;
+}
+
+.usernav li
+{
+    float: right;
+    border-right: 1px solid #000000;
+    margin-right: -2px;
+    padding: 0 .5em;
+}
+
+/* footer.html */
+
+#footer
+{
+    margin: 4em auto;
+    width: 300px;
+    text-align: center;
+}
+
+/* tempalte.html */
+
+#main
+{
+    background: white url('/images/background.png') 0 0 repeat-x;
+}
+
+#page
+{
+    margin: 0 auto;
+    width: 920px;
+    padding: 0 15px;
+}
+
+.inside
+{
+    position: relative;
+    margin: -35px 0 10px -25px;
+    width: 920px;
+    padding: 20px 25px 0;
+    background: url('/images/background-white.png') 0 0 no-repeat;
+}
+
+.icon
+{
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin-right: 20px;
+}
+
+/* index.html */
+
+#index-header
+{
+    text-align: right;
+    top: .5em;
+    right: .5em;
+    position: absolute;
+    font-size: 14px;
+}
+
+#wrapper
+{
+    margin: auto;
+    width: 950px;
+    text-align: left;
+    font-size: large;
+}
+
+#index-logo
+{
+    margin-top: 100px;
+    font-family: Courier;
+    text-align: center;
+}
+
+#index-logo a, #index-logo a:visited
+{
+    color: #000000;
+    font-size: 40px;
+    text-decoration: none;
+}
+
+#form
+{
+    text-align: center;
+    margin: 2em 0;
+}
+
+#form input
+{
+    font-size: 1em;
+}
+
+#form #url
+{
+    width: 400px;
+}
+
+#form #submit
+{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#signin
+{
+    margin-top: 3em;
+    text-align: center;
+}
+
+button
+{
+    font-size: 15px;
+    padding: 5px;
+}
+
+#signin img
+{
+    margin-bottom: -3px;
+    border: none;
+}
+
+/* submit.html */
+
+.email
+{
+    color: green;
+    font-weight: bold;
+}
+
+.submit-button
+{
+    margin: 30px auto 0;
+    width: 174px;
+}
+
+/* inspectors.html */
+
+table
+{
+    border: 1px solid #C5D7EF;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-container
+{
+    width: 800px;
+    margin: 20px auto 0;
+}
+
+th
+{
+    background: #C5D7EF;
+}
+
+th, td
+{
+    padding: .35em 1em .25em .35em;
+    word-break: break-word;
+}
+
+tr
+{
+    border: 1px solid #C5D7EF;
+}
+
+.checkbox
+{
+    width: 1.5em;
+    padding-right: 0;
+}
+
+.button-box
+{
+    width: 190px;
+    margin: 25px auto 0;
+}
+
+/* about.html */
+
+#about h2
+{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#about p
+{
+    margin: 8px 0;
+}

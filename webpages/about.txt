@@ -1,0 +1,28 @@
+History
+-------
+
+One day, my mom asked me to observe when there is iPhone 4 sale in Apple Store, their online website. You know, China is popular with iPhone 4, so that most of the time the phone is not available. Then I must watch that sale page again and again. That's boring, and doesn't meet programmer's style. So I decided to write one tool help me do this job automatically. That is, Inspector.
+
+About the Logo
+--------------
+
+That strange characters you have seen in the logo, people call them http://en.wikipedia.org/wiki/Leet[leet]. Leet is an alternative alphabet for the English language that is used primarily on the Internet. The logo's meaning is Inspector.
+
+Inspiration
+-----------
+
+In respect of how to show inspect an element in page, I influenced by http://getfirebug.com/[Firebug] mostly, even my project's name. Firebug is a great work, I also referenced some JavaScript code in it.
+
+I will appreciate http://www.crummy.com/software/BeautifulSoup/[Beautiful Soup] and http://d.hatena.ne.jp/furyu-tei/20090324/BSXPath[BSXPath] too. With Beautiful Soup, I could parse bad HTML/XHTML markup comfortable. The Python standard library is also good, but it's too strict. BSXPath is an extension for Beautiful Soup, so I can find an element by XPath.
+
+This project is hosted by http://code.google.com/appengine/[Google App Engine]. Thank you, Google guys.
+
+Development
+-----------
+
+This project has been open source, the source code is hosted by GitHub: https://github.com/xiaogaozi/inspector. Submit patch is always welcome. If you have any problem or suggestion, please visit this page: https://github.com/xiaogaozi/inspector/issues.
+
+One More Thing
+--------------
+
+Special thanks to my dear girl friend. Without her support, I couldn't accomplish this work.

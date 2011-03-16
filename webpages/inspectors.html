@@ -1,0 +1,37 @@
+{% if task_list.count %}
+    <p>You have inspected {{ task_list.count }} {{ page_str }}.</p>
+    <form method="post" action="/inspectors">
+        <div class="table-container">
+        <table>
+            <tr>
+                <th class="checkbox"></th>
+                <th>URL</th>
+                <th>XPath <a href="http://en.wikipedia.org/wiki/XPath" target="_blank"><img src="/images/help.gif" alt="help" /></a></th>
+            </tr>
+            {% for task in task_list %}
+                <tr>
+                    <td class="checkbox"><input type="checkbox" name="task_key" value="{{ task.key }}" /></td>
+                    <td><a href="{{ task.url }}" target="_blank">{{ task.url }}</a></td>
+                    <td>{{ task.xpath }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <input type="hidden" name="email" value="{{ email }}" />
+        <div class="button-box">
+            <a href="#" class="button blue-button" onclick="document.forms[0].submit(); return false;">Delete</a>
+            <a href="#" class="button red-button" onclick="check_all(); document.forms[0].submit(); return false;">Delete All</a>
+        </div>
+    </form>
+    <script type="text/javascript">
+        function check_all()
+        {
+            var f = document.forms[0];
+            for (var i = 0; i < f.elements.length; ++i)
+                if (f.elements[i].type == "checkbox")
+                    f.elements[i].checked = true;
+        }
+    </script>
+{% else %}
+    <p>You haven't inspected any page.</p>
+{% endif %}

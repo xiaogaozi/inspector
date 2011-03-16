@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Inspector</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/common.min.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.min.css" />
+    <!-- <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico" /> -->
+</head>
+<body>
+    <div id="main">
+        {{ header }}
+        <div id="page">
+            <div class="inside">
+                {% if icontype %}
+                    <div class="icon"><img src="/images/{{ icontype }}-icon.png" alt="{{ icontype }} icon" /></div>
+                {% endif %}
+                {{ content }}
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+</body>
+</html>

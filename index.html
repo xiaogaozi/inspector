@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Inspector</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/common.min.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.min.css" />
+    <!-- <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico" /> -->
+</head>
+<body>
+    {% if user %}
+        <div id="index-header">
+            <ul class="usernav">
+                <li><a href="/signout">Sign out</a></li>
+                <li><a href="/inspectors">Inspectors</a></li>
+                <li>{{ user.email }}</li>
+            </ul>
+        </div>
+        <div id="wrapper">
+            <div id="index-logo"><a href="/" title="Inspector">!/\/5|o3(702</a></div>
+            <form id="form" method="get" action="/inspect">
+                <input type="text" id="url" name="url" value="" placeholder="Please input a URL" />
+                <input type="submit" id="submit" value="»" />
+            </form>
+        </div>
+    {% else %}
+        <div id="wrapper">
+            <div id="index-logo"><a href="/" title="Inspector">!/\/5|o3(702</a></div>
+            <div id="signin">
+                <form method="get" action="/signin">
+                    <button type="submit">
+                        <img src="https://www.google.com/favicon.ico" alt="Sign in with Google" />
+                        Sign in with Google
+                    </button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    {% include "webpages/footer.html" %}
+</body>
+</html>

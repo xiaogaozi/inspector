@@ -1,0 +1,7 @@
+<form method="post" action="/submit">
+    <p>You have chosen the portion you want to be inspected. If that portion update, we will send an email to this address: <span class="email">{{ user.email }}</span>, you might add "noreply@s~insp3cto2.appspotmail.com" to your contact list in case our email be treated as spam.</p>
+    <input type="hidden" name="email" value="{{ email }}" />
+    <input type="hidden" name="url" value="{{ url }}" />
+    <input type="hidden" name="xpath" value="{{ xpath }}" />
+    <div class="submit-button"><a href="#" class="button blue-button" onclick="document.forms[0].submit(); return false;">OK! Inspect for me.</a></div>
+</form>

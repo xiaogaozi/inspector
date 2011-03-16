@@ -1,0 +1,4 @@
+cron:
+- description: inspector job
+  url: /tasks/inspector
+  schedule: every 30 minutes
