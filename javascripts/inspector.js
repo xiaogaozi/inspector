@@ -17,10 +17,12 @@
  */
 
 (function() {
+    var host, path;
+    var maxInt = 2147483646;
+    
     var Inspector = function() {
         this.oldElement = null;
         this.highlighter = null;
-        this.maxInt = 2147483646;
     };
 
     Inspector.prototype = {
@@ -30,8 +32,8 @@
 
         stopInspecting: function(event) {
             var element = event.target;
-            var email = $('input#lan-email').attr('value');
-            var url = $('input#lan-request-url').attr('value');
+            var email = jQuery('input#lan-email').attr('value');
+            var url = jQuery('input#lan-request-url').attr('value');
             var xpath = escape(this.getElementXPath(element));
             window.location = '/submit?email=' + email + '&url=' + url + '&xpath=' + xpath;
         },
@@ -80,7 +82,7 @@
             var w = offset.width, h = offset.height;
             var css = "left: " + x + "px !important; top: " + y +
                       "px !important; width: " + w + "px !important; height: " + h +
-                      "px !important; position: fixed !important; z-index: " + this.maxInt + " !important; pointer-events: none !important; box-shadow: 0 0 2px 2px #3875D7 !important; -moz-box-shadow: 0 0 2px 2px #3875D7 !important; -webkit-box-shadow: 0 0 2px 2px #3875D7 !important;";
+                      "px !important; position: fixed !important; z-index: " + maxInt + " !important; pointer-events: none !important; box-shadow: 0 0 2px 2px #3875D7 !important; -moz-box-shadow: 0 0 2px 2px #3875D7 !important; -webkit-box-shadow: 0 0 2px 2px #3875D7 !important;";
             div.style.cssText = css;
             return div;
         },
@@ -118,10 +120,10 @@
         },
 
         getOuterHTML: function(element) {
-            return $('<div></div>').append($(element).clone()).html();
+            return jQuery('<div></div>').append(jQuery(element).clone()).html();
         }
     };
-    
+
     function isabsolute(url)
     {
         if ((typeof url === "undefined") ||
@@ -132,46 +134,46 @@
             return false;
     }
 
-    function urljoin(host, url)
+    function urljoin(base, url)
     {
-        host = host.replace(/\/$/, '');
+        base = base.replace(/\/$/, '');
         url = url.replace(/^\//, '');
-        return host + '/' + url;
+        return base + '/' + url;
+    }
+
+    function urlfilter($obj, attr)
+    {
+        var h = $obj.attr(attr);
+        if (!isabsolute(h))
+        {
+            if (h.search(/^\//) != -1)
+                $obj.attr(attr, urljoin(host, h));
+            else
+                $obj.attr(attr, urljoin(path, h));
+        }
     }
 
     function post_processing()
     {
-        $('title').html('Inspector');
+        jQuery('title').html('Inspector');
         
-        var host = unescape($('input#lan-url-host').attr('value'));
-        host = host.replace(/\/$/, '');
-        $('a').each(function(i) {
-            var h = $(this).attr('href');
-            if (!isabsolute(h))
-                $(this).attr('href', urljoin(host, h));
+        jQuery('a').each(function(i) {
+            urlfilter(jQuery(this), 'href');
         });
-        $('img').each(function(i) {
-            var s = $(this).attr('src');
-            if (!isabsolute(s))
-                $(this).attr('src', urljoin(host, s));
+        jQuery('img').each(function(i) {
+            urlfilter(jQuery(this), 'src');
         });
-        $('link').each(function(i) {
-            var h = $(this).attr('href');
-            if (!isabsolute(h))
-                $(this).attr('href', urljoin(host, h));
+        jQuery('link').each(function(i) {
+            urlfilter(jQuery(this), 'href');
         });
-        $('frame').each(function(i) {
-            var s = $(this).attr('src');
-            if (!isabsolute(s))
-                $(this).attr('src', urljoin(host, s));
+        jQuery('frame').each(function(i) {
+            urlfilter(jQuery(this), 'src');
         });        
-        $('script').each(function(i) {
-            var s = $(this).attr('src');
-            if (!isabsolute(s))
-                $(this).attr('src', urljoin(host, s));
+        jQuery('script').each(function(i) {
+            urlfilter(jQuery(this), 'src');
         });
 
-        var $tips = $('<iframe src="/tips" scrolling="no" id="lan-tips"><p>Your browser does not support iframes.</p></iframe>');
+        var $tips = jQuery('<iframe src="/tips" scrolling="no" id="lan-tips"><p>Your browser does not support iframes.</p></iframe>');
         $tips.css({
             'position': 'fixed',
             'left': '0px',
@@ -180,7 +182,7 @@
             'height': '65px',
             'border-style': 'none',
             'overflow': 'hidden',
-            'z-index': this.maxInt
+            'z-index': maxInt
         });
         $tips.bind('mouseover', function() {
             if ($tips.css('bottom') == '0px')
@@ -194,15 +196,18 @@
                 $tips.css('top', '');
             }
         });
-        $('body').append($tips);
+        jQuery('body').append($tips);
     }
 
-    $(document).ready(function() {
+    jQuery(document).ready(function() {
+        host = unescape(jQuery('input#lan-url-host').attr('value'));
+        path = unescape(jQuery('input#lan-url-path').attr('value'));
         post_processing();
+
         var i = new Inspector();
-        $('body').bind('mouseover', function(event) { i.startInspecting(event); });
-        $('body').bind('mouseup', function(event) { i.stopInspecting(event); });
-        $('body').bind('click', function(event) {
+        jQuery('body').bind('mouseover', function(event) { i.startInspecting(event); });
+        jQuery('body').bind('mouseup', function(event) { i.stopInspecting(event); });
+        jQuery('body').bind('click', function(event) {
             event.stopPropagation();
             event.preventDefault();
         });

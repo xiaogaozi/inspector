@@ -38,10 +38,11 @@ class Inspector(webapp.RequestHandler):
             url = 'http://' + url
 
         status, html = inspector_job.get_html(url)
-        if status == True:
-            self.response.out.write(self.process_html(html, url))
-        else:
+        if status == False:
             self.response.out.write(inspector.template.error(html))
+        else:
+            url = status
+            self.response.out.write(self.process_html(html, url))
 
     def process_html(self, html, url):
         def create_tag(tagname, attrs, pair=True):
@@ -77,12 +78,19 @@ class Inspector(webapp.RequestHandler):
                          'id': 'lan-url-host',
                          'value': urllib.quote(urlparse.urlunparse((o.scheme, o.netloc, '', '', '', '')))},
                         False)
+        s += create_tag('input',
+                        {'type': 'hidden',
+                         'id': 'lan-url-path',
+                         'value': urllib.quote(inspector_job.urlpath(url))},
+                        False)
 
         try:
             charset = 'utf-8'
             m = re.search(r'(?i)charset=[\'"]?([^\'"]*)[\'"]?', html.decode(charset, 'ignore'))
             if m is not None:
                 charset = m.groups()[0]
+            if charset == 'gb2312' or charset == 'gbk':
+                charset = 'gb18030'
 
             m = None
             m = re.search(r'(?i)(<body[^>]*>)', html.decode(charset))
