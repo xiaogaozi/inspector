@@ -77,7 +77,7 @@ class Submit(webapp.RequestHandler):
             self.response.out.write(inspector.template.error(html))
             return
 
-        rval = datastore.add_task(email, url, xpath, html.decode('utf-8'))
+        rval = datastore.add_task(email, url, xpath, html)
         if rval == True:
             self.redirect('/')
         else:

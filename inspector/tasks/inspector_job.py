@@ -20,7 +20,6 @@ import cgi
 import logging
 import urlparse
 
-import inspector.template
 from inspector import datastore
 from lib.BSXPath import BSXPathEvaluator, XPathResult
 
@@ -89,7 +88,7 @@ def check_update(url, xpath, oldhtml):
     status, newhtml = get_html(url, xpath)
     if status == False:
         return False, newhtml
-    if newhtml != oldhtml.encode('utf-8'):
+    if newhtml != oldhtml:
         return True, newhtml
     else:
         return False, None
@@ -99,7 +98,7 @@ def main():
     message = mail.EmailMessage(sender="Inspector Notification <noreply@s~insp3cto2.appspotmail.com>",
                                 subject="The page you inspected has been updated")
     for task in datastore.get_all():
-        status, newhtml = check_update(task.url, task.xpath, task.html)
+        status, newhtml = check_update(task.url, task.xpath, datastore.get_task_html(task.key()))
         if status == True:
             rval = datastore.update_task(task.key(), newhtml)
             if rval != True:
@@ -107,7 +106,7 @@ def main():
                 continue
             message.to = task.email
             path = os.path.join(os.path.dirname(__file__), '../../webpages/notification_mail.html')
-            message.html = template.render(path, {'html': cgi.escape(task.html.encode('utf-8')), 'url': task.url})
+            message.html = template.render(path, {'html_content': datastore.get_task_html(task.key()), 'html': cgi.escape(datastore.get_task_html(task.key())), 'url': task.url})
             message.send()
 
 if __name__ == "__main__":

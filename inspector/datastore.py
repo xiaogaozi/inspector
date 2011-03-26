@@ -26,7 +26,7 @@ def add_task(email, url, xpath, html):
     e = db.Email(email)
     u = db.Link(url)
     if isduplicated(e, u, xpath) == False:
-        task = Task(email=e, url=u, xpath=xpath, html=html)
+        task = Task(email=e, url=u, xpath=xpath, html=_set_task_html(html))
         try:
             task.put()
             return True
@@ -34,6 +34,18 @@ def add_task(email, url, xpath, html):
             return 'Datastore save error'
     else:
         return "You have inspected this portion."
+
+def update_task(key, newhtml):
+    task = db.get(key)
+    try:
+        task.html = _set_task_html(newhtml)
+        try:
+            task.put()
+            return True
+        except db.Error:
+            return '[DBError] Datastore update error'
+    except UnicodeDecodeError:
+        return '[UnicodeDecodeError] ' + task.url
 
 def isduplicated(email, url, xpath):
     query = db.GqlQuery("SELECT * FROM Task "
@@ -51,6 +63,10 @@ def get_user_info(email):
                         "WHERE email = :1", email)
     return query
 
+def get_task_html(key):
+    task = db.get(key)
+    return task.html.encode('utf-8')
+
 def get_all():
     return Task.all()
 
@@ -62,11 +78,5 @@ def delete_tasks(keys):
     except db.Error:
         return False
 
-def update_task(key, newhtml):
-    task = db.get(key)
-    task.html = newhtml
-    try:
-        task.put()
-        return True
-    except db.Error:
-        return '[DBError] Datastore update error'
+def _set_task_html(html):
+    return html.decode('utf-8')
