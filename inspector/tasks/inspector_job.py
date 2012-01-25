@@ -28,6 +28,9 @@ from google.appengine.api import urlfetch
 from google.appengine.ext.webapp import template
 
 def urlpath(url, extra_path=''):
+    """Translate 'http://www.example.com/subdir/1.html' to 'http://www.example.com/subdir/'
+
+    If argument "extra_path" isn't null, the new url is 'http://www.example.com/subdir/extra_path/'"""
     o = urlparse.urlparse(url)
     if o.path != '' and re.search(r'.+\..+', o.path) is not None:
         m = re.search(r'^/.*/', o.path)
@@ -54,7 +57,7 @@ def get_html(url, xpath=None):
         
         if result.status_code != 200:
             logging.error('[HTTPError] "%s" %d' % (url, result.status_code))
-            return False, 'HTTP Error: ' + result.status_code
+            return False, 'HTTP Error: ' + str(result.status_code)
 
         # Meta tag redirection
         m = re.search(r'(?i)(<meta.*?http-equiv=[\'"]?Refresh[\'"]?.*?>)', result.content)
